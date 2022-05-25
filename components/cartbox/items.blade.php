@@ -11,11 +11,12 @@
                         data-request-data="rowId: '{{ $cartItem->rowId }}', menuId: '{{ $cartItem->id }}'"
                     ><i class="fa fa-minus"></i></button>
 
-                    <span class="price pull-right">
+                    <span class="price pull-right" style="text-align: right">
                         @if ($cartItem->hasConditions())
                             <s class="text-muted">{{currency_format($cartItem->subtotalWithoutConditions())}}</s>/
                         @endif
-                        {{ currency_format($cartItem->subtotal) }}
+                        {{ currency_format($cartItem->subtotal) }}<br>
+                        inkl. {{ number_format($cartItem->model->tax_classes->rate, 0) }}% Steuern: {{ currency_format($cartItem->subtotal * ($cartItem->model->tax_classes->rate / 100)) }}
                     </span>
                     <a
                         class="text-reset name-image"
