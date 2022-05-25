@@ -16,7 +16,9 @@
                             <s class="text-muted">{{currency_format($cartItem->subtotalWithoutConditions())}}</s>/
                         @endif
                         {{ currency_format($cartItem->subtotal) }}<br>
-                        inkl. {{ number_format($cartItem->model->tax_classes->rate, 0) }}% Steuern: {{ currency_format($cartItem->subtotal * ($cartItem->model->tax_classes->rate / 100)) }}
+                        @if($cartItem->model->tax_classes && $cartItem->model->tax_classes->rate)
+                    inkl. {{ number_format($cartItem->model->tax_classes->rate, 0) }}% Steuern: {{ currency_format($cartItem->subtotal * (($cartItem->model->tax_classes->rate) / 100)) }}
+                        @endif
                     </span>
                     <a
                         class="text-reset name-image"
